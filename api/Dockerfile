@@ -30,13 +30,7 @@ RUN python -m venv /py && \
     mkdir -p /vol/web/media && \
     mkdir -p /vol/web/static && \
     chown -R sistema-omet-user:sistema-omet-user /vol/ && \
-    chmod -R 755 /vol/ && \
-    mv celeryd /etc/init.d/celeryd && \
-    chown root:root /etc/init.d/celeryd && \
-    chmod +x /etc/init.d/celeryd && \
-    mv celeryd.conf /etc/conf.d/celeryd && \
-    chown root:root /etc/conf.d/celeryd && \
-    chmod +x /etc/conf.d/celeryd
+    chmod -R 755 /vol
 
 
 
