@@ -1,0 +1,43 @@
+version: '3.9'
+services:
+  postgresql:
+    container_name: sistema-omet-postgresql
+    image: 'postgis/postgis:14-3.3-alpine'
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_DB=sistemaOmet
+      - POSTGRES_USER=sistemaOmetAdmin
+      - POSTGRES_PASSWORD=acMdbmtx2pV36tgCNXexvPN4ve
+    volumes:
+      - 'dev-db-data:/var/lib/postgresql/data'
+  api:
+    container_name: sistema-omet-api
+    build:
+      context: ./api
+      args:
+        - DEV=true
+    ports:
+      - '8001:8001'
+    env_file: ./api/.env
+    command:
+      sh -c "celery -A sistemaOmet beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler --detach &&
+      celery -A sistemaOmet worker -l INFO -c 1 -n sistemaOmetWorker@%h --detach &&
+      python manage.py wait_for_db && python manage.py migrate && python manage.py runserver 0.0.0.0:8001"
+    volumes:
+      - './api:/api'
+      - dev-static-data:/vol/web
+    depends_on:
+      - rabbitmq
+      - postgresql
+  rabbitmq:
+    container_name: sistema-omet-rabbitmq
+    image: 'rabbitmq:3.8.9-management-alpine'
+    ports:
+      - '5672:5672'
+    environment:
+      - RABBITMQ_DEFAULT_USER=sistemaOmetAdmin
+      - RABBITMQ_DEFAULT_PASS=acMdbmtx2pV36tgCNXexvPN4ve
+volumes:
+  dev-db-data:
+  dev-static-data:

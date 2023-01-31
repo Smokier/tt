@@ -1,0 +1,5 @@
+FROM node:14.15.4-alpine3.10
+
+WORKDIR /web
+COPY . .
+
