@@ -22,6 +22,7 @@ from drf_spectacular.views import (
 )
 
 urlpatterns = [
+    # Swagger endpoints
     path('admin/', admin.site.urls),
         path('api/v1/schema/', SpectacularAPIView.as_view(), name='api-schema'),
     path(
@@ -29,5 +30,8 @@ urlpatterns = [
         SpectacularSwaggerView.as_view(url_name='api-schema'),
         name='api-docs'
     ),
+
+    # Sistema Omet API endpoints
     path('api/v1/user/', include('user.urls')),
+    path('api/v1/customer/', include('customer.urls')),
 ]

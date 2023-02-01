@@ -2,11 +2,43 @@
 
 ## PENDING
 - [ ] Implement the Change password endpoint.
-
-# IN PROCCESS
-
+- [ ] Implement the Verify email module.
+    - [ ] Implement the email sender.
+    - [ ] Design the email template.
+    - [ ] Implement the email verifier endpoint.
 - [ ] Implement the Reset password module.
     - [ ] Implement the password reset endpoint.
+- Implement the Project module.
+    - [ ] Implement the Register project endpoint.
+    - [ ] Implement the Update project endpoint.
+    - [ ] Implement the Get projects endpoint.
+    - [ ] Implement the Get project enpoints.
+    - [ ] Implement the Delete (set inactive) project.
+- [ ] Implement the Maintenance module.
+    - [ ] Implement the assign project endpoint.
+    - [ ] Implement the unassign project endpoint.
+- [ ] Implement the Project Model module.
+    - [ ] Implement the Register project model endpoint.
+    - [ ] Implement the Update project model endpoint.
+    - [ ] Implement the Get project models of a specific project endpoint.
+    - [ ] Implement the Get project model endpoint.
+    - [ ] Implement the Delete (set inactive) project model.
+- Implement the data type module.
+    - [ ] Implement the Register data type endpoint.
+    - [ ] Implement the Update data type endpoint.
+    - [ ] Implement the Get data types endpoint.
+    - [ ] Implement the Get data type enpoints.
+    - [ ] Implement the Delete (set inactive) data type.
+
+
+# IN PROCCESS
+- [ ] Implement the Customer module.
+    - [ ] Implement the Register customer endpoint.
+    - [ ] Implement the Update customer endpoint.
+    - [ ] Implement the Get customers endpoint.
+    - [ ] Implement the Get customer enpoints.
+    - [ ] Implement the Delete (set inactive) customer.
+
 
 # DONE
 
@@ -31,4 +63,5 @@
     - [x] Implement the logoutall endpoint.
 - [ ] Implement the Reset password module.
     - [x] Create the endpoint to request the password reset.
-    - [x] Implement the email sender
+    - [x] Implement the email sender.
+    - [x] Design the email template.
