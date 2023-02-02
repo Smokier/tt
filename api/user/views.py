@@ -4,11 +4,6 @@ Views for the user API.
 from django.contrib.auth import login
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import get_user_model
-from django.core import mail
-from django.dispatch import receiver
-from django.conf import settings
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
 
 from rest_framework.serializers import DateTimeField
 from rest_framework import (

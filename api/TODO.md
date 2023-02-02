@@ -8,12 +8,6 @@
     - [ ] Implement the email verifier endpoint.
 - [ ] Implement the Reset password module.
     - [ ] Implement the password reset endpoint.
-- Implement the Project module.
-    - [ ] Implement the Register project endpoint.
-    - [ ] Implement the Update project endpoint.
-    - [ ] Implement the Get projects endpoint.
-    - [ ] Implement the Get project enpoints.
-    - [ ] Implement the Delete (set inactive) project.
 - [ ] Implement the Maintenance module.
     - [ ] Implement the assign project endpoint.
     - [ ] Implement the unassign project endpoint.
@@ -32,12 +26,13 @@
 
 
 # IN PROCCESS
-- [ ] Implement the Customer module.
-    - [ ] Implement the Register customer endpoint.
-    - [ ] Implement the Update customer endpoint.
-    - [ ] Implement the Get customers endpoint.
-    - [ ] Implement the Get customer enpoints.
-    - [ ] Implement the Delete (set inactive) customer.
+- Implement the Project module.
+    - [ ] Implement the Register project endpoint.
+    - [ ] Implement the Update project endpoint.
+    - [ ] Implement the Get projects endpoint.
+    - [ ] Implement the Get project enpoints.
+    - [ ] Implement the Delete (set inactive) project.
+
 
 
 # DONE
@@ -65,3 +60,14 @@
     - [x] Create the endpoint to request the password reset.
     - [x] Implement the email sender.
     - [x] Design the email template.
+- [x] Implement the Active Customer module.
+    - [x] Implement the Register active customer endpoint.
+    - [x] Implement the Update active customer endpoint.
+    - [x] Implement the Get active customers endpoint.
+    - [x] Implement the Get active customer enpoints.
+    - [x] Implement the Delete (set inactive) active customer.
+- [x] Implement the Inactive Customer module.
+    - [x] Implement the Update Inactive customer endpoint.
+    - [x] Implement the Get inactive customers endpoint.
+    - [x] Implement the Get inactive customer enpoints.
+    - [x] Implement the Delete (set active) inactive customer.
