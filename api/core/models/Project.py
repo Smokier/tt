@@ -12,6 +12,7 @@ class Project(models.Model):
         db_table = 'Project'
         verbose_name = 'Project'
         verbose_name_plural = 'Projects'
+        unique_together = ('name', 'customer')
 
     def __str__(self):
         return f'{self.id}. {self.name}'

@@ -40,6 +40,8 @@ LOCAL_APPS = [
     'user',
     'core',
     'customer',
+    'project',
+    'dataType',
 ]
 
 THIRD_PARTY_APPS = [

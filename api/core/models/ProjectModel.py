@@ -12,6 +12,7 @@ class ProjectModel(models.Model):
         db_table = 'ProjectModel'
         verbose_name = 'Project Model'
         verbose_name_plural = 'Project Models'
+        unique_together = ('name', 'project')
 
     def __str__(self):
         return f'{self.id}. {self.name} - {self.project.name}'

@@ -8,32 +8,20 @@
     - [ ] Implement the email verifier endpoint.
 - [ ] Implement the Reset password module.
     - [ ] Implement the password reset endpoint.
-- [ ] Implement the Maintenance module.
-    - [ ] Implement the assign project endpoint.
-    - [ ] Implement the unassign project endpoint.
 - [ ] Implement the Project Model module.
     - [ ] Implement the Register project model endpoint.
     - [ ] Implement the Update project model endpoint.
     - [ ] Implement the Get project models of a specific project endpoint.
     - [ ] Implement the Get project model endpoint.
     - [ ] Implement the Delete (set inactive) project model.
-- Implement the data type module.
-    - [ ] Implement the Register data type endpoint.
-    - [ ] Implement the Update data type endpoint.
-    - [ ] Implement the Get data types endpoint.
-    - [ ] Implement the Get data type enpoints.
-    - [ ] Implement the Delete (set inactive) data type.
+
 
 
 # IN PROCCESS
-- Implement the Project module.
-    - [ ] Implement the Register project endpoint.
-    - [ ] Implement the Update project endpoint.
-    - [ ] Implement the Get projects endpoint.
-    - [ ] Implement the Get project enpoints.
-    - [ ] Implement the Delete (set inactive) project.
 
-
+- [ ] Implement the Maintenance module.
+    - [ ] Implement the assign project endpoint.
+    - [ ] Implement the unassign project endpoint.
 
 # DONE
 
@@ -60,14 +48,33 @@
     - [x] Create the endpoint to request the password reset.
     - [x] Implement the email sender.
     - [x] Design the email template.
-- [x] Implement the Active Customer module.
-    - [x] Implement the Register active customer endpoint.
+- [x] Implement the Customer module.
+    - [x] Implement the Register customer endpoint.
     - [x] Implement the Update active customer endpoint.
     - [x] Implement the Get active customers endpoint.
     - [x] Implement the Get active customer enpoints.
     - [x] Implement the Delete (set inactive) active customer.
-- [x] Implement the Inactive Customer module.
     - [x] Implement the Update Inactive customer endpoint.
     - [x] Implement the Get inactive customers endpoint.
     - [x] Implement the Get inactive customer enpoints.
     - [x] Implement the Delete (set active) inactive customer.
+- [x] Implement the Project module.
+    - [x] Implement the Register project endpoint.
+    - [x] Implement the Update active project endpoint.
+    - [x] Implement the Get active projects endpoint.
+    - [x] Implement the Get active project enpoints.
+    - [x] Implement the Delete (set inactive) active project.
+    - [x] Implement the Update inactive project endpoint.
+    - [x] Implement the Get inactive projects endpoint.
+    - [x] Implement the Get inactive project enpoints.
+    - [x] Implement the Delete (set inactive) inactive project.
+- Implement the data type module.
+    - [x] Implement the Register data type endpoint.
+    - [x] Implement the Update active data type endpoint.
+    - [x] Implement the Get active data types endpoint.
+    - [x] Implement the Get active data type enpoints.
+    - [x] Implement the Delete (set inactive) active data type.
+    - [x] Implement the Update inactive data type endpoint.
+    - [x] Implement the Get inactive data types endpoint.
+    - [x] Implement the Get inactive data type enpoints.
+    - [x] Implement the Delete (set active) inactive data type.

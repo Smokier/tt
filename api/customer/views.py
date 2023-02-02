@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
 from core.models import Customer
 from customer.serializers import CustomerSerializer
@@ -25,7 +26,7 @@ class ActiveCustomerViewSet(viewsets.ModelViewSet):
             instance = self.get_object()
             instance.is_active = False
             instance.save()
-            return response.Response(status=status.HTTP_200_OK)
+            return response.Response(status=status.HTTP_204_NO_CONTENT)
         except ObjectDoesNotExist:
             return response.Response(status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
@@ -37,15 +38,11 @@ class InactiveCustomerViewSet(mixins.ListModelMixin,
                               mixins.UpdateModelMixin,
                               mixins.DestroyModelMixin,
                               viewsets.GenericViewSet):
-#class InactiveCustomerViewSet(viewsets.ModelViewSet):
     """Viewset for inactive customers"""
     serializer_class = CustomerSerializer
     queryset = Customer.objects.filter(is_active=False)
     authentication_classes = [TokenAuthentication, ]
     permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
-
-    def get_queryset(self):
-        return Customer.objects.filter(is_active=False)
 
     def destroy(self, request, *args, **kwargs):
         """Set the customer as active"""
@@ -53,8 +50,8 @@ class InactiveCustomerViewSet(mixins.ListModelMixin,
             instance = self.get_object()
             instance.is_active = True
             instance.save()
-            return response.Response(status=status.HTTP_200_OK)
-        except ObjectDoesNotExist:
+            return response.Response(status=status.HTTP_204_NO_CONTENT)
+        except (ObjectDoesNotExist, Http404):
             return response.Response(status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return response.Response(status=status.HTTP_400_BAD_REQUEST)
