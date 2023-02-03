@@ -11,7 +11,7 @@
     - [ ] Implement the password reset endpoint.
 
 
-# IN PROCCESS
+# IN PROCESS
 
 - [ ] Implement the Project Model module
     - [ ] Implement the Register Project Model endpoint.
