@@ -10,6 +10,7 @@ class Maintenance(models.Model):
         db_table = 'Maintenance'
         verbose_name = 'Maintenance'
         verbose_name_plural = 'Maintenances'
+        unique_together = ('user', 'project')
 
     def __str__(self):
         return f'{self.user.name} {self.user.last_name} - {self.project.name}'

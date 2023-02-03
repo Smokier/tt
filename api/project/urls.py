@@ -6,10 +6,13 @@ app_name = 'project'
 
 router = routers.SimpleRouter()
 
-router.register('inactive', views.InactiveProjectViewSet, basename='inactive-prkject')
+router.register('inactive', views.InactiveProjectViewSet, basename='inactive-project')
+router.register('maintenance', views.MaintenanceViewSet, basename='maintenance')
 router.register('', views.ActiveProjectViewSet, basename='active-project')
 
 
+
 urlpatterns = [
-    path('', include(router.urls))
+    path('maintenance/user/<int:id>/', views.UserMaintenanceList.as_view(), name='maintenance-user'),
+    path('', include(router.urls)),
 ]
