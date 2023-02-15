@@ -38,6 +38,20 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=sistemaOmetAdmin
       - RABBITMQ_DEFAULT_PASS=acMdbmtx2pV36tgCNXexvPN4ve
+  web:
+    container_name: sistema-omet-web
+    build:
+      context: ./web
+      args:
+        - DEV=true
+    ports:
+      - '3001:3001'
+    command: sh -c "npm start"
+    stdin_open: true
+    volumes:
+      - './web:/web'
+    depends_on:
+      - api
 volumes:
   dev-db-data:
   dev-static-data:
