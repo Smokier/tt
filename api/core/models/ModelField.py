@@ -6,6 +6,7 @@ class ModelField(models.Model):
     caption = models.CharField(max_length=255, null=False)
     is_active = models.BooleanField(default=True)
     is_required = models.BooleanField(default=False)
+    order = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     data_type = models.ForeignKey('DataType', on_delete=models.SET_NULL, null=True)
     project_model = models.ForeignKey('ProjectModel', on_delete=models.CASCADE, null=False)

@@ -1,9 +1,8 @@
-from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from datetime import timedelta
-
+from .AbstractToken import AbstractToken
 from knox import crypto
 
 sha = 'hashlib.sha512'
@@ -14,7 +13,7 @@ class VerificationTokenManager(models.Manager):
     def create(
         self,
         user,
-        expiry=timedelta(hours=24),
+        expiry=timedelta(hours=48),
         prefix=''
     ):
         token = prefix + crypto.create_token_string()
@@ -27,27 +26,13 @@ class VerificationTokenManager(models.Manager):
         return instance, token
 
 
-class AbstractVerificationToken(models.Model):
-
+class VerificationToken(AbstractToken):
     objects = VerificationTokenManager()
 
-    digest = models.CharField(
-        max_length=128, primary_key=True)
-    token_key = models.CharField(
-        max_length=25,
-        db_index=True
-    )
-    user = models.ForeignKey(User, null=False, blank=False,
-                             related_name='verification_token_set', on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True)
-    expiry = models.DateTimeField(null=True, blank=True)
-
     class Meta:
-        abstract = True
+        db_table = 'VerificationToken'
+        verbose_name = 'Verification Token'
+        verbose_name_plural = 'Verification Tokens'
 
     def __str__(self):
         return '%s : %s' % (self.digest, self.user)
-
-
-class VerificationToken(AbstractVerificationToken):
-    pass

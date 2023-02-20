@@ -173,14 +173,14 @@ REST_FRAMEWORK = {
 # https://james1345.github.io/django-rest-knox/
 
 REST_KNOX = {
-  'SECURE_HASH_ALGORITHM': 'cryptography.hazmat.primitives.hashes.SHA512',
-  'AUTH_TOKEN_CHARACTER_LENGTH': 64,
-  'TOKEN_TTL': timedelta(hours=10),
-  'USER_SERIALIZER': 'user.serializers.UserSerializer',
-  'TOKEN_LIMIT_PER_USER': None,
-  'AUTO_REFRESH': True,
-  'EXPIRY_DATETIME_FORMAT': api_settings.DATETIME_FORMAT,
-  'TOKEN_PREFIX': '',
+    'SECURE_HASH_ALGORITHM': 'cryptography.hazmat.primitives.hashes.SHA512',
+    'AUTH_TOKEN_CHARACTER_LENGTH': 64,
+    'TOKEN_TTL': timedelta(hours=48),
+    'USER_SERIALIZER': 'user.serializers.UserSerializer',
+    'TOKEN_LIMIT_PER_USER': None,
+    'AUTO_REFRESH': True,
+    'EXPIRY_DATETIME_FORMAT': api_settings.DATETIME_FORMAT,
+    'TOKEN_PREFIX': '',
 }
 
 
@@ -223,5 +223,3 @@ CELERY_CACHE_BACKEND = 'django-cache'
 CELERY_TIMEZONE = 'America/Mexico_City'
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
-
-

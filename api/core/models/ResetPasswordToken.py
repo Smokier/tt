@@ -1,9 +1,8 @@
-from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from datetime import timedelta
-
+from .AbstractToken import AbstractToken
 from knox import crypto
 
 sha = 'hashlib.sha512'
@@ -28,27 +27,13 @@ class ResetPasswordTokenManager(models.Manager):
         return instance, token
 
 
-class AbstractResetPasswordToken(models.Model):
-
+class ResetPasswordToken(AbstractToken):
     objects = ResetPasswordTokenManager()
 
-    digest = models.CharField(
-        max_length=128, primary_key=True)
-    token_key = models.CharField(
-        max_length=25,
-        db_index=True
-    )
-    user = models.ForeignKey(User, null=False, blank=False,
-                             related_name='password_token_set', on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True)
-    expiry = models.DateTimeField(null=True, blank=True)
-
     class Meta:
-        abstract = True
+        db_table = 'ResetPasswordToken'
+        verbose_name = 'Reset Password Token'
+        verbose_name_plural = 'Reset Password Tokens'
 
     def __str__(self):
         return '%s : %s' % (self.digest, self.user)
-
-
-class ResetPasswordToken(AbstractResetPasswordToken):
-    pass

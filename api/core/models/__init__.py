@@ -16,3 +16,4 @@ from .UploadSize import UploadSize
 from .ContentTypes import ContentTypes
 from .FileFieldConfig import FileFieldConfig
 from .ForeignKeyFieldConfig import ForeignKeyFieldConfig
+from .AbstractToken import AbstractToken
