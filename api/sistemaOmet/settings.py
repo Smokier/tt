@@ -42,6 +42,7 @@ LOCAL_APPS = [
     'customer',
     'project',
     'dataType',
+    'fieldConfigs'
 ]
 
 THIRD_PARTY_APPS = [

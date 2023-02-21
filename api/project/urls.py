@@ -9,11 +9,11 @@ router = routers.SimpleRouter()
 router.register('inactive', views.InactiveProjectViewSet, basename='inactive-project')
 router.register('active', views.ActiveProjectViewSet, basename='active-project')
 router.register('maintenance', views.MaintenanceViewSet, basename='maintenance')
-router.register('models/', views.ActiveProjectModelViewSet, basename='active-project-model')
+router.register('models', views.ActiveProjectModelViewSet, basename='active-project-model')
 router.register('models/inactive', views.InactiveProjectModelViewSet, basename='inactive-project-model')
-router.register('models/fields', views.ModelFieldViewSet, basename='model-field')
+router.register('models/fields/', views.ActiveModelFieldViewSet, basename='model-field')
+router.register('models/fields/inactive', views.InactiveModelFieldViewSet, basename='inactive-model-field')
 router.register('', views.ActiveProjectViewSet, basename='active-project')
-
 
 
 urlpatterns = [

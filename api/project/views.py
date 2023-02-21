@@ -10,6 +10,7 @@ from project.serializers import (
     ProjectModelDataSerializer,
     ProjectModelDataSerializer,
     ModelFieldSerializer,
+    ModelFieldDataSerializer,
 )
 
 from core.models import (
@@ -238,9 +239,52 @@ class InactiveProjectModelViewSet(mixins.ListModelMixin,
                 return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-class ModelFieldViewSet(viewsets.ModelViewSet):
+class ActiveModelFieldViewSet(viewsets.ModelViewSet):
     """Viewset for model fields"""
     authentication_classes = (TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated, isActiveUser)
-    queryset = ModelField.objects.all()
+    queryset = ModelField.objects.filter(is_active=True)
     serializer_class = ModelFieldSerializer
+
+    def list(self, request, *args, **kwargs):
+        """List the all the active model fields"""
+        try:
+            serializer = ModelFieldDataSerializer(self.queryset, many=True)
+            return response.Response(serializer.data, status=status.HTTP_200_OK)
+        except (ObjectDoesNotExist, Http404):
+            return response.Response(status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class InactiveModelFieldViewSet(mixins.ListModelMixin,
+                                mixins.RetrieveModelMixin,
+                                mixins.DestroyModelMixin,
+                                viewsets.GenericViewSet):
+    """Viewset for model fields"""
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated, permissions.IsAdminUser, isActiveUser)
+    queryset = ModelField.objects.filter(is_active=False)
+    serializer_class = ModelFieldSerializer
+
+    def list(self, request, *args, **kwargs):
+        """List the all the inactive model fields"""
+        try:
+            serializer = ModelFieldDataSerializer(self.queryset, many=True)
+            return response.Response(serializer.data, status=status.HTTP_200_OK)
+        except (ObjectDoesNotExist, Http404):
+            return response.Response(status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def destroy(self, request, *args, **kwargs):
+        """Set the model field as active"""
+        try:
+            instance = self.get_object()
+            instance.is_active = True
+            instance.save()
+            return response.Response(status=status.HTTP_204_NO_CONTENT)
+        except (ObjectDoesNotExist, Http404):
+            return response.Response(status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return response.Response(status=status.HTTP_400_BAD_REQUEST)
