@@ -2,17 +2,11 @@ from django.db import models
 
 
 class ForeignKeyFieldConfig(models.Model):
-    RELATION_TYPES = (
-        ('1', 'One to One'),
-        ('2', 'One to Many'),
-        ('3', 'Many to Many'),
-    )
-
-    relation_type = models.CharField(max_length=1, choices=RELATION_TYPES, null=False)
     on_delete = models.CharField(max_length=255, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
-
-    model_field = models.ForeignKey('ModelField', on_delete=models.CASCADE, null=False)
+    input_type = models.ForeignKey('InputType', on_delete=models.CASCADE, null=False, default=1)
+    model_field_relation = models.ForeignKey('ModelField', on_delete=models.CASCADE, null=False, related_name='model_field_relation', default=1)
+    model_field = models.ForeignKey('ModelField', on_delete=models.CASCADE, null=False, related_name='model_field')
 
     class Meta:
         db_table = 'ForeignKeyFieldConfig'

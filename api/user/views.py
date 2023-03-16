@@ -1,7 +1,9 @@
 """
 Views for the user API.
 """
+from django.utils import timezone
 from django.contrib.auth import login
+from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import get_user_model
 
@@ -10,7 +12,9 @@ from rest_framework import (
     generics,
     permissions,
     status,
-    response
+    response,
+    viewsets,
+    permissions,
 )
 
 
@@ -29,6 +33,7 @@ from core.models import (
     ResetPasswordToken,
     VerificationToken,
 )
+
 from user.serializers import (
     UserSerializer,
     UserMinimalSerializer,
@@ -38,22 +43,67 @@ from user.serializers import (
 
 from core.tasks import send_reset_password_email
 
-class CreateUserView(generics.CreateAPIView):
-    """Create a new user in the system."""
-    # TODO add email verification
-    # TODO add permissions
+class UserViewSet(viewsets.ModelViewSet):
+    """Viewset for users."""
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated, permissions.IsAdminUser)
     serializer_class = UserSerializer
+    queryset = get_user_model().objects.all()
 
+    def list(self, request, *args, **kwargs):
+        """List all users filtered by is_active, email, and is_superuser."""
+        try:
+            is_active = request.query_params.get('is_active', None)
+            email = request.query_params.get('email', None)
+            is_superuser = request.query_params.get('is_superuser', None)
 
-class ManageUserView(generics.RetrieveUpdateAPIView):
-    """Manage the authenticated user."""
-    serializer_class = UserMinimalSerializer
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+            queryset = self.queryset
 
-    def get_object(self):
-        """Retrieve and return the authenticated user."""
-        return self.request.user
+            if is_active is not None:
+                is_active = False if is_active.lower().strip() != 'true' else True
+                queryset = queryset.filter(is_active=is_active)
+
+            if email is not None:
+                queryset = queryset.filter(email=email)
+
+            if is_superuser is not None:
+                is_superuser = False if is_superuser.lower().strip() != 'true' else True
+                queryset = queryset.filter(is_superuser=is_superuser)
+
+            serializer = UserMinimalSerializer(queryset, many=True)
+            return response.Response(serializer.data, status=status.HTTP_200_OK)
+        except (ObjectDoesNotExist, Http404):
+            return response.Response(status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def retrieve(self, request, *args, **kwargs):
+        """Retrieve a user by id."""
+        try:
+            instance = self.get_object()
+            serializer = UserMinimalSerializer(instance)
+            return response.Response(serializer.data, status=status.HTTP_200_OK)
+        except (ObjectDoesNotExist, Http404):
+            return response.Response(status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def destroy(self, request, *args, **kwargs):
+        """Set a user as active/inactive."""
+        try:
+            instance = self.get_object()
+
+            # Remove superuser status if user is being deactivated
+            if instance.is_active and instance.is_superuser:
+                instance.is_superuser = False
+
+            instance.is_active = not instance.is_active
+            instance.save()
+            return response.Response(status=status.HTTP_200_OK)
+        except (ObjectDoesNotExist, Http404):
+            return response.Response(status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoginView(KnoxLoginView):
@@ -69,6 +119,8 @@ class LoginView(KnoxLoginView):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data
         login(request, user)
+        user.last_login = timezone.now()
+        user.save()
         return super(LoginView, self).post(request, format=None)
 
 

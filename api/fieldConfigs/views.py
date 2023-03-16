@@ -14,8 +14,6 @@ from core.models import (
     IntegerFieldConfig,
     CharFieldConfig,
     ForeignKeyFieldConfig,
-    ContentTypes,
-    UploadSize,
     FileFieldConfig,
 )
 
@@ -25,8 +23,6 @@ from fieldConfigs.serializers import (
     IntegerFieldConfigSerializer,
     CharFieldConfigSerializer,
     ForeignKeyFieldConfigSerializer,
-    ContentTypeSerializer,
-    UploadSizeSerializer,
     FileFieldConfigSerializer,
 )
 
@@ -74,22 +70,6 @@ class ForeignKeyFieldConfigViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated, isActiveUser)
     queryset = ForeignKeyFieldConfig.objects.all()
     serializer_class = ForeignKeyFieldConfigSerializer
-
-
-class ContentTypeViewSet(viewsets.ModelViewSet):
-    """Viewset for content types"""
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (permissions.IsAuthenticated, isActiveUser)
-    queryset = ContentTypes.objects.all()
-    serializer_class = ContentTypeSerializer
-
-
-class UploadSizeViewSet(viewsets.ModelViewSet):
-    """Viewset for upload sizes"""
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (permissions.IsAuthenticated, isActiveUser)
-    queryset = UploadSize.objects.all()
-    serializer_class = UploadSizeSerializer
 
 
 class FileFieldConfigViewSet(viewsets.ModelViewSet):

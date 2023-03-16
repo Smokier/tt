@@ -50,7 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     profile_image = models.ImageField(upload_to=profile_image_file_path, null=True)
     projects = models.ManyToManyField('Project', through='Maintenance')
     created_at = models.DateTimeField(auto_now_add=True)
-    last_login = models.DateTimeField(auto_now_add=True)
+    last_login = models.DateTimeField()
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

@@ -11,7 +11,6 @@ from core.models import (
     CharFieldConfig,
     FileFieldConfig,
     ForeignKeyFieldConfig,
-    UploadSize,
     ContentTypes,
 )
 
@@ -92,36 +91,21 @@ class CharFieldConfigDataSerializer(serializers.ModelSerializer):
 
 
 class ForeignKeyFieldConfigSerializer(serializers.ModelSerializer):
-    relation_type = serializers.CharField(source='get_relation_type_display')
 
     class Meta:
         model = ForeignKeyFieldConfig
-        fields = ('id', 'relation_type', 'on_delete',
+        fields = ('id', 'input_type', 'on_delete',
                   'model_field')
 
 
 class ForeignKeyFieldConfigDataSerializer(serializers.ModelSerializer):
     model_field = ModelFieldMinimalSerializer()
-    relation_type = serializers.CharField(source='get_relation_type_display')
 
     class Meta:
         model = ForeignKeyFieldConfig
-        fields = ('id', 'relation_type', 'on_delete',
+        fields = ('id', 'input_type', 'on_delete',
                   'model_field', 'created_at')
 
-
-class ContentTypeSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = ContentTypes
-        fields = ('id', 'name', 'content_types')
-
-
-class UploadSizeSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = UploadSize
-        fields = ('id', 'name', 'size')
 
 
 class FileFieldConfigSerializer(serializers.ModelSerializer):
@@ -129,14 +113,11 @@ class FileFieldConfigSerializer(serializers.ModelSerializer):
     class Meta:
         model = FileFieldConfig
         fields = ('id', 'upload_to', 'max_length',
-                  'content_types', 'max_upload_size',
-                  'model_field')
+                  'max_bytes_upload_size', 'model_field')
 
 
 class FileFieldConfigDataSerializer(serializers.ModelSerializer):
     model_field = ModelFieldMinimalSerializer()
-    content_types = ContentTypeSerializer(many=True)
-    max_upload_size = UploadSizeSerializer()
 
     class Meta:
         model = FileFieldConfig

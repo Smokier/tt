@@ -1,18 +1,25 @@
 """
 URL mappings for the user API.
 """
-from django.urls import path
+from django.urls import path, include
+
 from knox import views as knox_views
+from rest_framework import routers
+
+
 from user import views
 
+
+router = routers.SimpleRouter()
+
+router.register('', views.UserViewSet)
 
 app_name = 'user'
 
 urlpatterns = [
-    path('create/', views.CreateUserView.as_view(), name='create'),
     path('auth/', views.LoginView.as_view(), name='login'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
-    path('logoutall/', views.LogoutAllView.as_view(), name='logoutall'),
+    path('logout-all/', views.LogoutAllView.as_view(), name='logoutall'),
     path('reset-password/', views.ResetPasswordView.as_view(), name='resetpassword'),
-    path('me/', views.ManageUserView.as_view(), name='me')
+    path('', include(router.urls))
 ]

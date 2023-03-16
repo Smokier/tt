@@ -12,8 +12,6 @@ router.register('integer', views.IntegerFieldConfigViewSet)
 router.register('char', views.CharFieldConfigViewSet)
 router.register('foreign-key', views.ForeignKeyFieldConfigViewSet)
 router.register('file', views.FileFieldConfigViewSet)
-router.register('file/content-type', views.ContentTypeViewSet)
-router.register('file/upload-size', views.UploadSizeViewSet)
 
 
 urlpatterns = [

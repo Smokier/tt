@@ -13,11 +13,9 @@ from django.contrib.auth import (
 
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for the user object."""
-
-
     class Meta:
         model = get_user_model()
-        fields = ('email', 'password', 'name', 'last_name')
+        fields = ('email', 'password', 'name', 'last_name', 'phone', 'is_superuser')
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 
     def create(self, validated_data):
@@ -38,11 +36,9 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserMinimalSerializer(serializers.ModelSerializer):
     """Serializer for the user object."""
-
-
     class Meta:
         model = get_user_model()
-        fields = ('id', 'name', 'last_name',)
+        fields = ('id', 'name', 'last_name', 'is_superuser', 'is_active')
 
 
 class UserLoginSerializer(serializers.Serializer):

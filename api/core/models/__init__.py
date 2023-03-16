@@ -12,8 +12,9 @@ from .DateFieldConfig import DateFieldConfig
 from .FloatFieldConfig import FloatFieldConfig
 from .IntegerFieldConfig import IntegerFieldConfig
 from .CharFieldConfig import CharFieldConfig
-from .UploadSize import UploadSize
 from .ContentTypes import ContentTypes
 from .FileFieldConfig import FileFieldConfig
 from .ForeignKeyFieldConfig import ForeignKeyFieldConfig
 from .AbstractToken import AbstractToken
+from .InputType import InputType
+from .DateFieldType import DateFieldType
